@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% block title %}Login{% endblock %}
+{% block content %}
+    <div class="kpx_login">
+        <h3 class="kpx_authTitle">Login or <a href="{% url 'register' %}">Sign up</a></h3>
+        <div class="row kpx_row-sm-offset-3 kpx_socialButtons">
+            <div class="col-xs-2 col-sm-2">
+                <a href="{% url "social:begin" "facebook" %}" class="btn btn-lg btn-block kpx_btn-facebook"
+                   data-toggle="tooltip" data-placement="top"
+                   title="Facebook">
+                    <i class="fa fa-facebook-official fa-2x"></i>
+                    <span class="hidden-xs"></span>
+                </a>
+            </div>
+            <div class="col-xs-2 col-sm-2">
+                <a href="{% url "social:begin" "twitter" %}" class="btn btn-lg btn-block kpx_btn-twitter"
+                   data-toggle="tooltip" data-placement="top"
+                   title="Twitter">
+                    <i class="fa fa-twitter fa-2x"></i>
+                    <span class="hidden-xs"></span>
+                </a>
+            </div>
+            <div class="col-xs-2 col-sm-2">
+                <a href="{% url "social:begin" "google-oauth2" %}" class="btn btn-lg btn-block kpx_btn-google-plus"
+                   data-toggle="tooltip" data-placement="top"
+                   title="Google Plus">
+                    <i class="fa fa-google-plus-official fa-2x"></i>
+                    <span class="hidden-xs"></span>
+                </a>
+            </div>
+        </div>
+        <br>
+        <div class="row kpx_row-sm-offset-3 kpx_socialButtons">
+            <div class="col-xs-2 col-sm-2">
+                <a href="{% url "social:begin" "github" %}" class="btn btn-lg btn-block kpx_btn-github"
+                   data-toggle="tooltip" data-placement="top"
+                   title="GitHub">
+                    <i class="fa fa-github fa-2x"></i>
+                    <span class="hidden-xs"></span>
+                </a>
+            </div>
+
+        </div>
+        <br>
+        <div class="row kpx_row-sm-offset-3 kpx_loginOr">
+            <div class="col-xs-12 col-sm-6">
+                <hr class="kpx_hrOr">
+                <span class="kpx_spanOr">or</span>
+            </div>
+        </div>
+        <div class="row kpx_row-sm-offset-3">
+            <div class="col-xs-12 col-sm-6">
+                <form class="kpx_loginForm" action="{% url 'login' %}" autocomplete="off" method="POST">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <input type="hidden" name="next" value="{{ next }}"/>
+                    <hr/>
+                    <p><a href="{% url "password_reset" %}">Forgot password?</a></p>
+                    {% buttons %}
+                        <button type="submit" class="btn btn-lg btn-outline-primary btn-block"><i
+                                class="fa fa-sign-in"></i>
+                            Login
+                        </button>
+                    {% endbuttons %}
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+

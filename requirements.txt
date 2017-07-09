@@ -1,0 +1,6 @@
+Django
+social-auth-app-django
+django-bootstrap3
+gunicorn
+psycopg2
+whitenoise

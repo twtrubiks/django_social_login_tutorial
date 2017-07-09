@@ -1,0 +1,41 @@
+{% load staticfiles %}
+{% load bootstrap3 %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static "stylesheets/login.css" %}" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url "dashboard" %}">Django Social Login Tutorial</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+
+            {% if request.user.is_authenticated %}
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Hello {{ request.user.first_name }}</a>
+                </li>
+                <li><a href="{% url "logout" %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            {% else %}
+                <li><a href="{% url "login" %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>

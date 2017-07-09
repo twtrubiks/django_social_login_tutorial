@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load account_tags %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+    <div class="jumbotron">
+        <h1>Dashboard</h1>
+        <p>Welcome to your dashboard.</p>
+        So far <b>{% total_people %}</b> people have tried Django Social Login Tutorial.
+    </div>
+
+
+    {% social_people %}
+
+
+
+{% endblock %}
