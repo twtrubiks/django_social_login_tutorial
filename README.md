@@ -228,7 +228,7 @@ INSTALLED_APPS = [
 接著在你的命令提示字元 (cmd ) 底下輸入
 > python manage.py migrate
 
- [settings.py](https://github.com/twtrubiks/django_social_login_tutorial/blob/master/django_social_login_tutorial/settings.py)
+[settings.py](https://github.com/twtrubiks/django_social_login_tutorial/blob/master/django_social_login_tutorial/settings.py)
 
 ```python
 AUTHENTICATION_BACKENDS = (
@@ -246,9 +246,9 @@ AUTHENTICATION_BACKENDS = (
 可參考本範例的 [urls.py](https://github.com/twtrubiks/django_social_login_tutorial/blob/master/django_social_login_tutorial/urls.py)
 
 ```python
-    urlpatterns = [
+urlpatterns = [
     ......
-    url(r'social-auth/', include('social_django.urls', namespace='social'))
+    path('social-auth/', include('social_django.urls', namespace='social'))
 ]
 ```
 
@@ -337,7 +337,7 @@ Templates 使用方法，可參考 [login.html](https://github.com/twtrubiks/dja
 
 [TWITTER](https://twitter.com/?lang=zh-tw)
 
-請到 [https://apps.twitter.com/app/new](https://apps.twitter.com/app/new) 建立 app ，
+請到 [https://developer.twitter.com/en/portal/projects-and-apps](https://developer.twitter.com/en/portal/projects-and-apps) 建立 app,
 
  Callback URL 請填入 [http://localhost:8000/social-auth/complete/twitter/](http://localhost:8000/social-auth/complete/twitter/)
 
@@ -372,16 +372,62 @@ Templates 使用方法，可參考 [login.html](https://github.com/twtrubiks/dja
 
 ## 佈署
 
-佈署到 [Heroku](https://dashboard.heroku.com/) ，
+佈署到 [Heroku](https://dashboard.heroku.com/),
+
 詳細教學可參考我之前寫的 [Deploying_Django_To_Heroku_Tutorial](https://github.com/twtrubiks/Deploying_Django_To_Heroku_Tutorial)
+
+### 建議使用 WhiteNoise 佈署
+
+```cmd
+pip3 install whitenoise
+```
+
+這樣靜態檔案才會正常顯示.
+
+詳細說明可參考 [Using WhiteNoise with Django](https://whitenoise.evans.io/en/stable/django.html)
+
+在 [settings.py](https://github.com/twtrubiks/django_social_login_tutorial/blob/master/django_social_login_tutorial/settings.py) 中加入以下東西,
+
+記得把 DEBUG 修改為 `False`
+
+```python
+DEBUG = False
+```
+
+設定 STATIC_ROOT
+
+```python
+STATIC_ROOT = BASE_DIR / "staticfiles"
+```
+
+設定 WhiteNoise 到 MIDDLEWARE
+
+```python
+MIDDLEWARE = [
+    # ...
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    # ...
+]
+```
+
+Add compression
+
+```python
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+```
+
+最後執行 `python3 manage.py collectstatic`
+
+如果沒有任何錯誤, 再將產生出來的東西一起 push 到 Heroku 上.
 
 ## TODO
 
-- [ ] 佈署到  [Heroku](https://dashboard.heroku.com/)  社交平常登入 ( FACEBOOK ) 異常，但本機測試 ( localhost ) 正常。
+- [ ] 佈署到 [Heroku](https://dashboard.heroku.com/)  社交平常登入 ( FACEBOOK ) 異常，但本機測試 ( localhost ) 正常。
 
 ## 執行環境
 
-* Python 3.6.0
+* Python 3.9
 
 ## Reference
 
